@@ -1,0 +1,37 @@
+#include <opencv2/opencv.hpp>
+
+using namespace cv;
+
+void applyMeanFilter(Mat& image) {
+    Mat result;
+    blur(image, result, Size(3, 3)); // Applying a 3x3 mean filter
+    image = result.clone(); // Copy the result back to the original image
+}
+
+int main() {
+    // Read the image from file
+    Mat image = imread("C:\Users\v-dusamh\Pictures\image_processing.JPG);
+
+    // Check if the image was loaded successfully
+    if (image.empty()) {
+        printf("Error loading image\n");
+        return -1;
+    }
+
+    // Display the original image
+    namedWindow("Original Image", WINDOW_NORMAL);
+    imshow("Original Image", image);
+
+    // Apply mean filter for image smoothing
+    applyMeanFilter(image);
+
+    // Display the smoothed image
+    namedWindow("Smoothed Image", WINDOW_NORMAL);
+    imshow("Smoothed Image", image);
+
+    // Wait for a key press and then close the windows
+    waitKey(0);
+    destroyAllWindows();
+
+    return 0;
+}
